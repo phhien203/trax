@@ -2,6 +2,7 @@ import NextImage from "next/image";
 import NextLink from "next/link";
 import {
   Box,
+  Flex,
   List,
   ListItem,
   ListIcon,
@@ -17,6 +18,7 @@ import {
   MdPlaylistAdd,
   MdFavorite,
 } from "react-icons/md";
+import { usePlaylist } from "../lib/hooks";
 
 const navMenu = [
   {
@@ -49,9 +51,9 @@ const musicMenu = [
   },
 ];
 
-const playlists = new Array(30).fill(1).map((_, i) => `Playlist ${i + 1}`);
-
 const Sidebar = () => {
+  const { playlists } = usePlaylist();
+
   return (
     <Box
       width="100%"
@@ -60,7 +62,7 @@ const Sidebar = () => {
       paddingX="5px"
       color="gray"
     >
-      <Box paddingY="20px" overflow="hidden">
+      <Flex paddingY="20px" height="100%" direction="column">
         <Box width="120px" marginBottom="20px" paddingX="20px">
           <NextImage src="/logo.svg" height={60} width={120} />
         </Box>
@@ -110,20 +112,20 @@ const Sidebar = () => {
 
         <Divider color="gray.800" />
 
-        <Box height="60%" paddingY="20px" overflow="auto">
+        <Box paddingY="20px" overflow="auto">
           <List spacing={2}>
             {playlists.map((playlist) => (
-              <ListItem key={playlist} paddingX="20px">
+              <ListItem key={playlist.id} paddingX="20px">
                 <LinkBox>
                   <NextLink href="/" passHref>
-                    <LinkOverlay>{playlist}</LinkOverlay>
+                    <LinkOverlay>{playlist.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>
               </ListItem>
             ))}
           </List>
         </Box>
-      </Box>
+      </Flex>
     </Box>
   );
 };
