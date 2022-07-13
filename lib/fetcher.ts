@@ -1,16 +1,17 @@
-export default function fetcher(url: string, data: any = undefined) {
-  return fetch(`${window.location.origin}/api${url}`, {
+export default async function fetcher(url: string, data?: any) {
+  const res = await fetch(`${window.location.origin}/api${url}`, {
     method: data ? "POST" : "GET",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then((res) => {
-    if (res.status > 399 && res.status < 200) {
-      throw new Error();
-    }
-
-    return res.json();
   });
+  const json = await res.json();
+
+  if (res.status > 399 && res.status < 200) {
+    throw new Error(json);
+  }
+
+  return json;
 }

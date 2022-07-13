@@ -1,13 +1,20 @@
+import { User } from "@prisma/client";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "./prisma";
 
-export const validateRoute = (handler) => {
+type APIHandler = (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  user: User,
+) => void | any;
+
+export const validateRoute = (handler: APIHandler) => {
   return async function (req: NextApiRequest, res: NextApiResponse) {
     const { TRAX_ACCESS_TOKEN: token } = req.cookies;
 
     if (token) {
-      let user;
+      let user: User;
 
       try {
         const { id } = jwt.verify(token, "hello") as JwtPayload;

@@ -1,22 +1,21 @@
+import {
+  Box,
+  Divider,
+  Flex,
+  LinkBox,
+  LinkOverlay,
+  List,
+  ListIcon,
+  ListItem
+} from "@chakra-ui/layout";
 import NextImage from "next/image";
 import NextLink from "next/link";
 import {
-  Box,
-  Flex,
-  List,
-  ListItem,
-  ListIcon,
-  Center,
-  LinkBox,
-  LinkOverlay,
-  Divider,
-} from "@chakra-ui/layout";
-import {
+  MdFavorite,
   MdHome,
-  MdSearch,
   MdLibraryMusic,
   MdPlaylistAdd,
-  MdFavorite,
+  MdSearch
 } from "react-icons/md";
 import { usePlaylist } from "../lib/hooks";
 
