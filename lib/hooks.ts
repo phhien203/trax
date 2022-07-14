@@ -6,7 +6,7 @@ export const useMe = () => {
   const { data, error } = useSWR("/me", fetcher);
 
   return {
-    user: data as User,
+    user: data as User & { playlistsCount: number },
     isLoading: !data && !error,
     isError: error,
   };
