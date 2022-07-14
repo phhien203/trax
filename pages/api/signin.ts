@@ -3,6 +3,7 @@ import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
+import { UserTokenPayload } from "../../types/user-token-payload";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body;
@@ -14,17 +15,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   });
 
   if (user && bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-        time: Date.now(),
-      },
-      "hello",
-      {
-        expiresIn: "8h",
-      },
-    );
+    const payload: UserTokenPayload = {
+      id: user.id,
+      email: user.email,
+      time: Date.now(),
+    };
+    const token = jwt.sign(payload, "hello", {
+      expiresIn: "8h",
+    });
 
     res.setHeader(
       "Set-Cookie",

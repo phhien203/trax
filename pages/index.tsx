@@ -9,7 +9,7 @@ const Home = ({ artists }) => {
   return (
     <GradientLayout
       color="purple"
-      isRoundedImage={true}
+      isRoundedImage
       subtitle="Profile"
       title={`${user?.firstName ?? ""} ${user?.lastName ?? ""}`}
       description={`${user?.playlistsCount ?? 0} public playlist`}

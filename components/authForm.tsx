@@ -1,11 +1,12 @@
-import { Box, Flex, Input, Button } from "@chakra-ui/react";
+import { Box, Button, Flex, Input } from "@chakra-ui/react";
+import NextImage from "next/image";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
-import { useSWRConfig } from "swr";
 import { auth } from "../lib/mutations";
-import NextImage from "next/image";
 
 const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +17,7 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
     setIsLoading(true);
 
     try {
-      await auth(mode, { email, password });
+      await auth(mode, { email, password, firstName, lastName });
       setIsLoading(false);
       router.push("/");
     } catch (err) {
@@ -39,15 +40,35 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
         <Box padding="50px" bg="gray.900" borderRadius="6px">
           <form onSubmit={handleSubmit}>
             <Input
+              value={firstName}
+              type="text"
+              autoComplete="off"
+              marginBottom="8px"
+              placeholder="Input Your First Name"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+
+            <Input
+              value={lastName}
+              type="text"
+              autoComplete="off"
+              marginBottom="8px"
+              placeholder="Input Your Last Name"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+
+            <Input
               type="email"
               autoComplete="off"
-              placeholder="Input your email"
+              marginBottom="8px"
+              placeholder="Input Your Email"
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
               type="password"
               autoComplete="off"
-              placeholder="Input your password"
+              marginBottom="8px"
+              placeholder="Input Your Password"
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button

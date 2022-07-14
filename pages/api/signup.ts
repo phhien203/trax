@@ -3,10 +3,11 @@ import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
+import { UserTokenPayload } from "../../types/user-token-payload";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const salt = bcrypt.genSaltSync();
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName } = req.body;
 
   let user;
 
@@ -15,6 +16,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       data: {
         email,
         password: bcrypt.hashSync(password, salt),
+        firstName,
+        lastName,
       },
     });
   } catch (error) {
@@ -23,17 +26,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const token = jwt.sign(
-    {
-      id: user.id,
-      email: user.email,
-      time: Date.now(),
-    },
-    "hello",
-    {
-      expiresIn: "8h",
-    },
-  );
+  const payload: UserTokenPayload = {
+    id: user.id,
+    email: user.email,
+    time: Date.now(),
+  };
+  const token = jwt.sign(payload, "hello", {
+    expiresIn: "8h",
+  });
 
   res.setHeader(
     "Set-Cookie",

@@ -33,6 +33,7 @@
     "@types/cookie": "^0.5.1",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/react": "^18.0.15",
+    "@types/react-howler": "^5.2.0",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "babel-plugin-superjson-next": "^0.4.3",

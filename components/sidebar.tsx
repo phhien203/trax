@@ -6,7 +6,7 @@ import {
   LinkOverlay,
   List,
   ListIcon,
-  ListItem
+  ListItem,
 } from "@chakra-ui/layout";
 import NextImage from "next/image";
 import NextLink from "next/link";
@@ -15,7 +15,7 @@ import {
   MdHome,
   MdLibraryMusic,
   MdPlaylistAdd,
-  MdSearch
+  MdSearch,
 } from "react-icons/md";
 import { usePlaylist } from "../lib/hooks";
 
@@ -116,7 +116,13 @@ const Sidebar = () => {
             {playlists.map((playlist) => (
               <ListItem key={playlist.id} paddingX="20px">
                 <LinkBox>
-                  <NextLink href="/" passHref>
+                  <NextLink
+                    href={{
+                      pathname: "/playlist/[playlistId]",
+                      query: { playlistId: playlist.id },
+                    }}
+                    passHref
+                  >
                     <LinkOverlay>{playlist.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>

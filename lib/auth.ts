@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
+import { UserTokenPayload } from "../types/user-token-payload";
 import prisma from "./prisma";
 
 type APIHandler = (
@@ -37,4 +38,9 @@ export const validateRoute = (handler: APIHandler) => {
     res.status(401);
     res.json({ error: "No auth token" });
   };
+};
+
+export const validateToken = (token) => {
+  const userPayload = jwt.verify(token, "hello") as JwtPayload;
+  return userPayload as UserTokenPayload;
 };
