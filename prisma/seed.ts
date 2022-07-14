@@ -31,11 +31,13 @@ const run = async () => {
     create: {
       email: "user@test.com",
       password: bcrypt.hashSync("password", salt),
+      firstName: "Hien",
+      lastName: "Pham",
     },
   });
 
   const songs = await prisma.song.findMany({});
-  
+
   await Promise.all(
     new Array(10).fill(1).map((_, i) => {
       return prisma.playlist.create({
