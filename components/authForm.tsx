@@ -12,17 +12,13 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
 
-    try {
-      await auth(mode, { email, password, firstName, lastName });
-      setIsLoading(false);
-      router.push("/");
-    } catch (err) {
-      console.error(err);
-    }
+    await auth(mode, { email, password, firstName, lastName });
+    setIsLoading(false);
+    router.push("/");
   };
 
   return (
@@ -39,23 +35,27 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
       <Flex justify="center" align="center" height="calc(100vh - 100px)">
         <Box padding="50px" bg="gray.900" borderRadius="6px">
           <form onSubmit={handleSubmit}>
-            <Input
-              value={firstName}
-              type="text"
-              autoComplete="off"
-              marginBottom="8px"
-              placeholder="Input Your First Name"
-              onChange={(e) => setFirstName(e.target.value)}
-            />
+            {mode === "signup" ? (
+              <Input
+                value={firstName}
+                type="text"
+                autoComplete="off"
+                marginBottom="8px"
+                placeholder="Input Your First Name"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            ) : null}
 
-            <Input
-              value={lastName}
-              type="text"
-              autoComplete="off"
-              marginBottom="8px"
-              placeholder="Input Your Last Name"
-              onChange={(e) => setLastName(e.target.value)}
-            />
+            {mode === "signup" ? (
+              <Input
+                value={lastName}
+                type="text"
+                autoComplete="off"
+                marginBottom="8px"
+                placeholder="Input Your Last Name"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            ) : null}
 
             <Input
               type="email"

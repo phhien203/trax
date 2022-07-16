@@ -7,7 +7,9 @@ export default function (req: NextRequest) {
     const token = req.cookies.get("TRAX_ACCESS_TOKEN");
 
     if (!token) {
-      return NextResponse.rewrite(new URL("/signin", req.url));
+      const url = req.nextUrl.clone();
+      url.pathname = "/signin";
+      return NextResponse.rewrite(url);
     }
   }
 }

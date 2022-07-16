@@ -1,5 +1,8 @@
-import { Box, Center, Flex, Text } from "@chakra-ui/layout";
 import {
+  Box,
+  Center,
+  Flex,
+  Text,
   ButtonGroup,
   IconButton,
   RangeSlider,

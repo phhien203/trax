@@ -36,7 +36,7 @@ const Home = ({ artists }) => {
                 width="240px"
               >
                 <Image
-                  src="https://tinted-gym-f99.notion.site/image/https%3A%2F%2Fi.picsum.photos%2Fid%2F387%2F400%2F400.jpg%3Fhmac%3DuHaIoMDR9JwCoiI3IUuS_7v8HCVg21wFGk-VY_j06nU?table=block&id=22d6e9b9-69be-49eb-a885-d70170cb2dd2&spaceId=511cd811-5561-4a61-b550-c4086b4afafb&width=800&userId=&cache=v2"
+                  src={`https://picsum.photos/400?random=${artist.id}`}
                   width="100%"
                   borderRadius="100%"
                 />

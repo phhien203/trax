@@ -5,8 +5,11 @@ import { UserTokenPayload } from "../types/user-token-payload";
 import prisma from "./prisma";
 
 type APIHandler = (
+  // eslint-disable-next-line no-unused-vars
   req: NextApiRequest,
+  // eslint-disable-next-line no-unused-vars
   res: NextApiResponse,
+  // eslint-disable-next-line no-unused-vars
   user: User,
 ) => void | any;
 
