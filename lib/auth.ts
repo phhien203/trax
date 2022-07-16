@@ -14,7 +14,7 @@ type APIHandler = (
 ) => void | any;
 
 export const validateRoute = (handler: APIHandler) => {
-  return async function (req: NextApiRequest, res: NextApiResponse) {
+  return async function apiHandler(req: NextApiRequest, res: NextApiResponse) {
     const { TRAX_ACCESS_TOKEN: token } = req.cookies;
 
     if (token) {
